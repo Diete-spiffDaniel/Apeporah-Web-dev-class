@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1d4b">
+    <meta name="description"
+        content="Practice web development with Apeporah's game-style challenges. Answer questions, earn XP, and build your streak.">
+    <title>Practice Challenges | Apeporah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --paper: #f4f4f8;
+            --white: #fff;
+            --ink: #201f3f;
+            --muted: #70718a;
+            --line: #e2e2ec;
+            --navy: #1f1d4b;
+            --teal: #2bd0b5;
+            --mint: #e3f8f5;
+            --mono: "DM Mono", Consolas, monospace;
+            --sans: "DM Sans", "Segoe UI", sans-serif;
+            --serif: "Fraunces", Georgia, serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--paper);
+            color: var(--ink);
+            font: 14px var(--sans);
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--teal);
+            outline-offset: 3px;
+        }
+
+        .topbar {
+            min-height: 66px;
+            padding: 10px 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 1px solid var(--line);
+            background: var(--white);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            display: block;
+            border-radius: 6px;
+            background: var(--navy);
+        }
+
+        .brand-name {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .site-nav,
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .site-nav a {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .site-nav a[aria-current="page"],
+        .site-nav a:hover {
+            color: var(--navy);
+        }
+
+        .contact-link {
+            min-height: 36px;
+            padding: 0 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background: var(--white);
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .contact-link.primary {
+            border-color: var(--navy);
+            background: var(--navy);
+            color: white;
+        }
+
+        .contact-link:hover {
+            border-color: var(--teal);
+        }
+
+        .page-intro {
+            padding: 35px 34px 29px;
+            background: var(--navy);
+            color: white;
+        }
+
+        .page-intro-inner,
+        main {
+            width: min(1050px, 100%);
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            color: var(--teal);
+            font: 11px var(--mono);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 9px 0 7px;
+            font: 500 36px/1.12 var(--serif);
+            letter-spacing: 0;
+        }
+
+        .intro-copy {
+            max-width: 680px;
+            margin: 0;
+            color: #e6e5f0;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        main {
+            padding: 27px 34px 46px;
+            flex: 1;
+        }
+
+        .score-row {
+            padding-bottom: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .score-progress {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .score-caption {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font: 10px var(--mono);
+        }
+
+        .progress-track {
+            height: 6px;
+            overflow: hidden;
+            border-radius: 5px;
+            background: #e4e4ed;
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--teal);
+            transition: width 180ms ease;
+        }
+
+        .score-numbers {
+            display: flex;
+            gap: 20px;
+        }
+
+        .score-stat {
+            min-width: 52px;
+        }
+
+        .score-stat strong {
+            display: block;
+            color: var(--navy);
+            font: 500 20px var(--serif);
+        }
+
+        .score-stat span {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font: 9px var(--mono);
+            text-transform: uppercase;
+        }
+
+        .game-layout {
+            margin-top: 22px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(230px, .75fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .challenge-card,
+        .progress-panel {
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: var(--white);
+        }
+
+        .challenge-card {
+            padding: 21px;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font: 10px var(--mono);
+        }
+
+        .xp-reward {
+            color: #258d7d;
+        }
+
+        .challenge-card h2 {
+            margin: 19px 0 20px;
+            color: var(--ink);
+            font: 500 25px/1.25 var(--serif);
+        }
+
+        .answer-list {
+            display: grid;
+            gap: 9px;
+        }
+
+        .answer-option {
+            width: 100%;
+            min-height: 48px;
+            padding: 10px 12px;
+            display: grid;
+            grid-template-columns: 27px 1fr;
+            gap: 10px;
+            align-items: center;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background: #fff;
+            color: var(--ink);
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .answer-option:hover:not(:disabled) {
+            border-color: var(--teal);
+            background: var(--mint);
+        }
+
+        .answer-option:disabled {
+            cursor: default;
+            opacity: 1;
+        }
+
+        .answer-letter {
+            width: 25px;
+            height: 25px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            color: var(--muted);
+            font: 10px var(--mono);
+        }
+
+        .answer-option.correct {
+            border-color: #73cbbd;
+            background: var(--mint);
+        }
+
+        .answer-option.correct .answer-letter {
+            border-color: #2b9d8b;
+            background: #2b9d8b;
+            color: white;
+        }
+
+        .answer-option.incorrect {
+            border-color: #e1a39c;
+            background: #fff4f2;
+        }
+
+        .answer-option.incorrect .answer-letter {
+            border-color: #ba5b52;
+            background: #ba5b52;
+            color: white;
+        }
+
+        .answer-text {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .hint-box {
+            margin-top: 14px;
+            border-top: 1px solid var(--line);
+        }
+
+        .hint-box summary {
+            padding: 13px 0 2px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .hint-box p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .feedback {
+            margin-top: 14px;
+            padding: 12px 13px;
+            border-left: 3px solid var(--teal);
+            background: var(--mint);
+            color: var(--ink);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .feedback.wrong {
+            border-color: #ba5b52;
+            background: #fff4f2;
+        }
+
+        .feedback[hidden] {
+            display: none;
+        }
+
+        .next-button,
+        .review-link {
+            min-height: 41px;
+            margin-top: 14px;
+            padding: 0 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            border: 0;
+            border-radius: 5px;
+            background: var(--navy);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .next-button:hover,
+        .review-link:hover {
+            background: #34316b;
+        }
+
+        .next-button[hidden] {
+            display: none;
+        }
+
+        .progress-panel {
+            padding: 19px;
+        }
+
+        .progress-panel h2 {
+            margin: 0 0 5px;
+            color: var(--ink);
+            font: 500 20px var(--serif);
+        }
+
+        .level-label {
+            color: #258d7d;
+            font: 10px var(--mono);
+        }
+
+        .level-description {
+            margin: 11px 0 17px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .badge-heading {
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font: 10px var(--mono);
+            text-transform: uppercase;
+        }
+
+        .badge-list {
+            margin: 10px 0 0;
+            padding: 0;
+            display: grid;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #9293a3;
+            font-size: 11px;
+        }
+
+        .badge-item.unlocked {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .badge-symbol {
+            width: 20px;
+            height: 20px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            font-size: 10px;
+        }
+
+        .badge-item.unlocked .badge-symbol {
+            border-color: var(--teal);
+            background: var(--mint);
+            color: #167968;
+        }
+
+        .sidebar-links {
+            margin-top: 17px;
+            padding-top: 13px;
+            display: grid;
+            gap: 9px;
+            border-top: 1px solid var(--line);
+        }
+
+        .sidebar-links a {
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration-color: var(--teal);
+            text-underline-offset: 3px;
+        }
+
+        .completion-view {
+            padding: 30px 8px;
+            text-align: center;
+        }
+
+        .completion-view[hidden] {
+            display: none;
+        }
+
+        .completion-mark {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 15px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--teal);
+            color: var(--navy);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .completion-view h2 {
+            margin: 0 0 7px;
+            font: 500 27px var(--serif);
+        }
+
+        .completion-view p {
+            max-width: 470px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.65;
+        }
+
+        .site-footer {
+            padding: 20px 34px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            background: var(--navy);
+            color: white;
+        }
+
+        .footer-brand {
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .footer-links a {
+            color: white;
+            font-size: 11px;
+            text-decoration-color: var(--teal);
+            text-underline-offset: 3px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (max-width: 850px) {
+            .topbar {
+                padding-right: 20px;
+                padding-left: 20px;
+                flex-wrap: wrap;
+            }
+
+            .site-nav {
+                width: 100%;
+                justify-content: center;
+                padding: 8px 0 2px;
+                border-top: 1px solid var(--line);
+            }
+
+            .header-actions {
+                margin-left: auto;
+            }
+
+            main {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .topbar {
+                padding: 10px 15px;
+                gap: 10px;
+            }
+
+            .header-actions {
+                width: 100%;
+                gap: 7px;
+            }
+
+            .contact-link {
+                min-width: 0;
+                flex: 1 1 0;
+                padding: 0 7px;
+                font-size: 10px;
+            }
+
+            .page-intro {
+                padding: 31px 20px 27px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            main {
+                padding: 18px 14px 34px;
+            }
+
+            .score-row {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .score-numbers {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .game-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .challenge-card {
+                padding: 16px;
+            }
+
+            .challenge-card h2 {
+                font-size: 22px;
+            }
+
+            .progress-panel {
+                order: -1;
+            }
+
+            .badge-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .site-footer {
+                padding: 20px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <a class="brand" href="index.html#home" aria-label="Apeporah home">
+            <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true">
+                <path d="M22 78 50 18 78 78" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="10"></path>
+                <circle cx="50" cy="60" r="7" fill="#2bd0b5"></circle>
+            </svg>
+            <span class="brand-name">Apeporah</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html#home">Home</a>
+            <a href="course.html">Course</a>
+            <a href="playground.html">Playground</a>
+            <a href="practice.html" aria-current="page">Practice</a>
+        </nav>
+        <div class="header-actions">
+            <a class="contact-link primary"
+                href="https://wa.me/2348115085379?text=Hi%20Apeporah%2C%20I%20have%20a%20question%20about%20web%20development."
+                target="_blank" rel="noopener noreferrer">Ask on WhatsApp <span aria-hidden="true">↗</span></a>
+            <a class="contact-link" href="https://www.instagram.com/apeporah/" target="_blank"
+                rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+        </div>
+    </header>
+
+    <section class="page-intro">
+        <div class="page-intro-inner">
+            <div class="eyebrow">Apeporah / skill quest</div>
+            <h1>Small challenges. Real web skills.</h1>
+            <p class="intro-copy">Answer a question, learn from the explanation, and collect XP as you go. Your progress
+                saves in this browser.</p>
+        </div>
+    </section>
+
+    <main>
+        <section class="score-row" aria-label="Challenge progress and score">
+            <div class="score-progress">
+                <div class="score-caption"><span id="progress-label">Challenge 1 of 12</span><span
+                        id="progress-percent">0% complete</span></div>
+                <div class="progress-track" role="progressbar" aria-label="Challenge completion" aria-valuemin="0"
+                    aria-valuemax="12" aria-valuenow="0">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            <div class="score-numbers">
+                <div class="score-stat"><strong id="xp-value">0</strong><span>XP</span></div>
+                <div class="score-stat"><strong id="streak-value">0</strong><span>Streak</span></div>
+                <div class="score-stat"><strong id="best-value">0</strong><span>Best</span></div>
+            </div>
+        </section>
+
+        <div class="game-layout">
+            <section class="challenge-card" aria-labelledby="question-title">
+                <div id="question-view">
+                    <div class="challenge-meta"><span id="question-topic">HTML</span><span class="xp-reward">+10 XP for
+                            a new answer</span></div>
+                    <h2 id="question-title"></h2>
+                    <div class="answer-list" id="answer-list" role="group" aria-label="Answer choices"></div>
+                    <details class="hint-box" id="hint-box">
+                        <summary>Show me a hint</summary>
+                        <p id="hint-text"></p>
+                    </details>
+                    <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
+                    <button class="next-button" id="next-button" type="button" hidden>Next challenge <span
+                            aria-hidden="true">→</span></button>
+                </div>
+                <div class="completion-view" id="completion-view" hidden>
+                    <div class="completion-mark" aria-hidden="true">✓</div>
+                    <h2>Quest complete.</h2>
+                    <p id="completion-copy">You answered every challenge. Review a topic or head to the code playground
+                        to put those skills to work.</p>
+                    <a class="review-link" href="course.html">Review the course <span aria-hidden="true">→</span></a>
+                    <a class="review-link" href="playground.html">Open the playground <span
+                            aria-hidden="true">↗</span></a>
+                </div>
+            </section>
+
+            <aside class="progress-panel" aria-labelledby="rank-title">
+                <div class="eyebrow">Your run</div>
+                <h2 id="rank-title">Curious Explorer</h2>
+                <div class="level-label" id="rank-next">Next level: Page Builder</div>
+                <p class="level-description" id="rank-description">Every correct answer adds 10 XP. Your streak grows
+                    with each new challenge you solve.</p>
+                <div class="badge-heading">Achievements</div>
+                <ul class="badge-list" id="badge-list"></ul>
+                <div class="sidebar-links">
+                    <a href="course.html">Browse all 12 lessons <span aria-hidden="true">→</span></a>
+                    <a href="web-development-notes.md" download>Download the study notes <span
+                            aria-hidden="true">↓</span></a>
+                    <a href="playground.html">Try the code playground <span aria-hidden="true">↗</span></a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <a class="footer-brand" href="index.html#home">Apeporah</a>
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="index.html#home">Home</a>
+            <a href="course.html">Course</a>
+            <a href="playground.html">Playground</a>
+            <a href="web-development-notes.md" download>Download notes</a>
+        </nav>
+    </footer>
+
+    <script>
+        const questions = [
+            { id: "html", topic: "HTML / STRUCTURE", question: "Which element identifies the main content of a page?", options: ["<section>", "<main>", "<footer>"], answer: 1, hint: "A page should have one element that names its central content.", explanation: "<main> marks the dominant content of the page and helps assistive technology jump straight to it." },
+            { id: "css", topic: "CSS / LAYOUT", question: "Which CSS layout tool is designed for rows and columns together?", options: ["Grid", "Float", "Text-align"], answer: 0, hint: "Think of a two-dimensional layout with tracks in both directions.", explanation: "CSS Grid manages rows and columns as a two-dimensional layout system." },
+            { id: "javascript", topic: "JAVASCRIPT / BASICS", question: "Which declaration is best for a value you will not reassign?", options: ["var", "const", "repeat"], answer: 1, hint: "It is the modern default when the binding itself stays the same.", explanation: "Use const when you will not reassign a binding. Use let when its value needs to change." },
+            { id: "dom", topic: "DOM / EVENTS", question: "How do you find the first element with id=\"welcome\"?", options: ["document.querySelector(\"#welcome\")", "document.getText(\"welcome\")", "window.findId(\"welcome\")"], answer: 0, hint: "The selector uses the same # prefix as an ID selector in CSS.", explanation: "querySelector accepts a CSS selector. The #welcome selector finds the element with that ID." },
+            { id: "forms", topic: "FORMS / VALIDATION", question: "What makes an email field required before a form can submit?", options: ["placeholder", "required", "autofocus"], answer: 1, hint: "This HTML attribute asks the browser to prevent an empty submission.", explanation: "The required attribute enables built-in browser validation. A server should still validate received data." },
+            { id: "responsive", topic: "RESPONSIVE DESIGN", question: "What should a flexible mobile layout usually do?", options: ["Keep every section 1200px wide", "Adapt to the available space", "Hide all page content"], answer: 1, hint: "A page should fit phones and larger screens without forcing sideways scrolling.", explanation: "Flexible tracks, relative sizes, and content-driven breakpoints let layouts adapt to different screens." },
+            { id: "accessibility", topic: "ACCESSIBILITY", question: "How can a visitor tell which control has keyboard focus?", options: ["Remove all outlines", "Keep a visible focus style", "Use color only"], answer: 1, hint: "People navigating with Tab need a visible indicator of their current position.", explanation: "A visible focus style helps keyboard users track where they are. Do not remove outlines without a clear replacement." },
+            { id: "workflow", topic: "TOOLS / GIT", question: "What does a Git commit create?", options: ["A named snapshot of staged changes", "A public website automatically", "A new HTML element"], answer: 0, hint: "Think of it as a checkpoint in your project's history.", explanation: "A commit records staged changes as a checkpoint in the repository history." },
+            { id: "quality", topic: "SECURITY / PRIVACY", question: "Where should a private API key go?", options: ["In a public JavaScript file", "In a public HTML comment", "On a trusted server"], answer: 2, hint: "Anything shipped to the browser can be inspected by visitors.", explanation: "Keep private credentials on a server. Frontend files and browser requests are visible to visitors." },
+            { id: "api", topic: "APIs / DATA", question: "What should you check before treating a fetch response as successful?", options: ["response.ok", "window.loaded", "document.ready"], answer: 0, hint: "A 404 response still fulfills the fetch Promise, so inspect its status.", explanation: "Check response.ok or response.status because HTTP error responses do not automatically reject fetch." },
+            { id: "testing", topic: "TESTING / DEBUGGING", question: "What is a useful first step when a bug appears?", options: ["Change many files at once", "Reproduce it and narrow the cause", "Ignore the console"], answer: 1, hint: "Make the problem happen reliably before trying a fix.", explanation: "Reproducing the issue and isolating a small cause makes debugging more reliable." },
+            { id: "publish", topic: "PUBLISHING", question: "Where should index.html go for a simple static site?", options: ["At the published folder root", "Only inside an images folder", "It is not needed"], answer: 0, hint: "Hosts commonly use this filename as the site's default entry page.", explanation: "A static host can serve index.html at the published root as the homepage, with no build step required." }
+        ];
+
+        const storageKey = "apeporah-skill-quest-v1";
+        const validIds = new Set(questions.map(question => question.id));
+        let saved = {};
+        try { saved = JSON.parse(localStorage.getItem(storageKey) || "{}"); } catch { saved = {}; }
+        const solved = new Set(Array.isArray(saved.solved) ? saved.solved.filter(id => validIds.has(id)) : []);
+        const state = {
+            xp: Number.isFinite(saved.xp) ? Math.max(0, saved.xp) : solved.size * 10,
+            streak: Number.isFinite(saved.streak) ? Math.max(0, saved.streak) : 0,
+            best: Number.isFinite(saved.best) ? Math.max(0, saved.best) : 0,
+            current: Number.isInteger(saved.current) ? Math.min(Math.max(0, saved.current), questions.length - 1) : 0
+        };
+        const answerList = document.getElementById("answer-list");
+        const feedback = document.getElementById("feedback");
+        const nextButton = document.getElementById("next-button");
+
+        function saveProgress() {
+            localStorage.setItem(storageKey, JSON.stringify({ ...state, solved: Array.from(solved) }));
+        }
+
+        function getRank(xp) {
+            if (xp >= 90) return { name: "Web Maker", next: "All levels unlocked", description: "You've built a strong foundation. Keep practicing and put your skills to work." };
+            if (xp >= 40) return { name: "Page Builder", next: "Next level: Web Maker · 90 XP", description: "Nice momentum. Keep connecting the parts and try the code playground." };
+            if (xp >= 10) return { name: "Tag Tinkerer", next: "Next level: Page Builder · 40 XP", description: "You're turning concepts into skills. Each new correct answer earns 10 XP." };
+            return { name: "Curious Explorer", next: "Next level: Tag Tinkerer · 10 XP", description: "Every correct answer adds 10 XP. Your streak grows with each new challenge you solve." };
+        }
+
+        function renderStats() {
+            const done = solved.size;
+            const percent = Math.round(done / questions.length * 100);
+            document.getElementById("xp-value").textContent = String(state.xp);
+            document.getElementById("streak-value").textContent = String(state.streak);
+            document.getElementById("best-value").textContent = String(state.best);
+            document.getElementById("progress-label").textContent = `Challenge ${Math.min(state.current + 1, questions.length)} of ${questions.length}`;
+            document.getElementById("progress-percent").textContent = `${percent}% complete`;
+            document.getElementById("progress-fill").style.width = `${percent}%`;
+            document.querySelector("[role='progressbar']").setAttribute("aria-valuenow", String(done));
+            const rank = getRank(state.xp);
+            document.getElementById("rank-title").textContent = rank.name;
+            document.getElementById("rank-next").textContent = rank.next;
+            document.getElementById("rank-description").textContent = rank.description;
+
+            const badges = [
+                { label: "First steps", symbol: "1", earned: done >= 1 },
+                { label: "Five topics", symbol: "5", earned: done >= 5 },
+                { label: "Long streak", symbol: "3", earned: state.best >= 3 },
+                { label: "Quest complete", symbol: "12", earned: done === questions.length }
+            ];
+            const badgeList = document.getElementById("badge-list");
+            badgeList.replaceChildren();
+            badges.forEach(badge => {
+                const item = document.createElement("li");
+                item.className = `badge-item${badge.earned ? " unlocked" : ""}`;
+                const symbol = document.createElement("span");
+                symbol.className = "badge-symbol";
+                symbol.textContent = badge.earned ? "✓" : badge.symbol;
+                const label = document.createElement("span");
+                label.textContent = badge.label;
+                item.append(symbol, label);
+                badgeList.append(item);
+            });
+        }
+
+        function showCompletion() {
+            document.getElementById("question-view").hidden = true;
+            document.getElementById("completion-view").hidden = false;
+            document.getElementById("completion-copy").textContent = `You earned ${state.xp} XP and answered all ${questions.length} challenges. Review a topic or head to the code playground to put those skills to work.`;
+        }
+
+        function renderQuestion() {
+            if (solved.size === questions.length) {
+                renderStats();
+                showCompletion();
+                return;
+            }
+            const question = questions[state.current];
+            document.getElementById("question-topic").textContent = question.topic;
+            document.getElementById("question-title").textContent = question.question;
+            document.getElementById("hint-text").textContent = question.hint;
+            document.getElementById("hint-box").open = false;
+            feedback.hidden = true;
+            feedback.className = "feedback";
+            nextButton.hidden = true;
+            answerList.replaceChildren();
+            question.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.className = "answer-option";
+                button.type = "button";
+                button.dataset.option = String(index);
+                const letter = document.createElement("span");
+                letter.className = "answer-letter";
+                letter.textContent = String.fromCharCode(65 + index);
+                const text = document.createElement("span");
+                text.className = "answer-text";
+                text.textContent = option;
+                button.append(letter, text);
+                answerList.append(button);
+            });
+
+            if (solved.has(question.id)) {
+                answerList.querySelectorAll("button").forEach(button => { button.disabled = true; });
+                feedback.textContent = `Already mastered. ${question.explanation}`;
+                feedback.hidden = false;
+                nextButton.hidden = false;
+            }
+            renderStats();
+        }
+
+        answerList.addEventListener("click", event => {
+            const button = event.target.closest("button[data-option]");
+            if (!button || button.disabled) return;
+            const question = questions[state.current];
+            const selected = Number(button.dataset.option);
+            const correct = selected === question.answer;
+            button.classList.add(correct ? "correct" : "incorrect");
+
+            if (!correct) {
+                state.streak = 0;
+                button.disabled = true;
+                feedback.className = "feedback wrong";
+                feedback.textContent = `Not quite. Use the hint or try another answer. ${question.explanation}`;
+                feedback.hidden = false;
+                saveProgress();
+                renderStats();
+                return;
+            }
+
+            const firstSolve = !solved.has(question.id);
+            if (firstSolve) {
+                solved.add(question.id);
+                state.xp += 10;
+                state.streak += 1;
+                state.best = Math.max(state.best, state.streak);
+            }
+            answerList.querySelectorAll("button").forEach(option => { option.disabled = true; });
+            feedback.className = "feedback";
+            feedback.textContent = `${firstSolve ? "Correct! +10 XP. " : "Correct. XP already earned. "}${question.explanation}`;
+            feedback.hidden = false;
+            nextButton.hidden = false;
+            saveProgress();
+            renderStats();
+        });
+
+        nextButton.addEventListener("click", () => {
+            for (let offset = 1; offset <= questions.length; offset++) {
+                const candidate = (state.current + offset) % questions.length;
+                if (!solved.has(questions[candidate].id)) {
+                    state.current = candidate;
+                    saveProgress();
+                    renderQuestion();
+                    return;
+                }
+            }
+            showCompletion();
+        });
+
+        renderQuestion();
+    </script>
+</body>
+
+</html>

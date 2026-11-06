@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1d4b">
+    <meta name="description"
+        content="Practice HTML, CSS, and JavaScript in the Apeporah code playground with an instant live preview.">
+    <title>Code Playground | Apeporah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --paper: #f4f4f8;
+            --white: #fff;
+            --ink: #201f3f;
+            --muted: #70718a;
+            --line: #e2e2ec;
+            --navy: #1f1d4b;
+            --teal: #2bd0b5;
+            --mint: #e3f8f5;
+            --sans: "DM Sans", "Segoe UI", sans-serif;
+            --serif: "Fraunces", Georgia, serif;
+            --mono: "DM Mono", Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--paper);
+            color: var(--ink);
+            font: 14px var(--sans);
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--teal);
+            outline-offset: 3px;
+        }
+
+        .topbar {
+            min-height: 66px;
+            padding: 10px 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 1px solid var(--line);
+            background: var(--white);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            display: block;
+            border-radius: 6px;
+            background: var(--navy);
+        }
+
+        .brand-name {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .site-nav,
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .site-nav a {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .site-nav a[aria-current="page"],
+        .site-nav a:hover {
+            color: var(--navy);
+        }
+
+        .contact-link {
+            min-height: 36px;
+            padding: 0 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background: var(--white);
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .contact-link.primary {
+            border-color: var(--navy);
+            background: var(--navy);
+            color: white;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .contact-link:hover {
+            border-color: var(--teal);
+        }
+
+        main {
+            width: min(1320px, 100%);
+            margin: 0 auto;
+            padding: 37px 34px 42px;
+            flex: 1;
+        }
+
+        .page-heading {
+            margin-bottom: 22px;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .page-heading-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .eyebrow {
+            color: #258d7d;
+            font: 11px var(--mono);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 8px 0 7px;
+            color: var(--ink);
+            font: 500 36px/1.12 var(--serif);
+            letter-spacing: 0;
+        }
+
+        .intro {
+            max-width: 650px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .reset-button {
+            min-height: 39px;
+            padding: 0 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background: var(--white);
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .reset-button:hover {
+            border-color: var(--teal);
+            background: var(--mint);
+        }
+
+        .download-button {
+            min-height: 39px;
+            padding: 0 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--navy);
+            border-radius: 5px;
+            background: var(--navy);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .download-button:hover {
+            border-color: #302d6a;
+            background: #302d6a;
+        }
+
+        .reset-icon {
+            font-size: 15px;
+        }
+
+        .workbench {
+            min-height: 605px;
+            display: grid;
+            grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+            overflow: hidden;
+            border: 1px solid #dcdce8;
+            border-radius: 7px;
+            background: var(--white);
+            box-shadow: 0 12px 35px #1f1d4b0d;
+        }
+
+        .editor-panel {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--line);
+            background: #fbfbfd;
+        }
+
+        .panel-bar {
+            min-height: 45px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .panel-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .window-dots i {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #d3d4df;
+        }
+
+        .file-tabs {
+            min-height: 40px;
+            padding: 0 10px;
+            display: flex;
+            align-items: stretch;
+            gap: 3px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .file-tab {
+            position: relative;
+            min-width: 66px;
+            padding: 0 12px;
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .file-tab[aria-selected="true"] {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .file-tab[aria-selected="true"]::after {
+            position: absolute;
+            right: 9px;
+            bottom: -1px;
+            left: 9px;
+            height: 2px;
+            background: var(--teal);
+            content: "";
+        }
+
+        .editor-area {
+            position: relative;
+            min-height: 460px;
+            flex: 1;
+            background: #fbfbfd;
+        }
+
+        .code-editor {
+            width: 100%;
+            height: 100%;
+            min-height: 460px;
+            padding: 20px 20px 26px 56px;
+            display: block;
+            resize: none;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: #28334a;
+            font: 12px/1.8 var(--mono);
+            tab-size: 2;
+            white-space: pre;
+            overflow: auto;
+        }
+
+        .code-editor[hidden] {
+            display: none;
+        }
+
+        .code-editor:focus-visible {
+            outline: none;
+        }
+
+        .code-editor::selection {
+            background: #2bd0b54d;
+        }
+
+        .editor-status {
+            min-height: 37px;
+            padding: 0 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font: 10px var(--mono);
+        }
+
+        .editor-status.has-error {
+            color: #a63d35;
+        }
+
+        .editor-status.has-error .status-dot {
+            background: #ba5b52;
+        }
+
+        #editor-status {
+            max-width: 190px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .status-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #21a98f;
+        }
+
+        .preview-panel {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            background: #eeeff4;
+        }
+
+        .preview-bar {
+            min-height: 45px;
+            padding: 0 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px solid #dedfe8;
+        }
+
+        .preview-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .preview-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #21a98f;
+        }
+
+        .preview-url {
+            max-width: 180px;
+            padding: 5px 8px;
+            overflow: hidden;
+            border: 1px solid #dedfe8;
+            border-radius: 4px;
+            background: #f8f8fb;
+            color: #77788d;
+            font: 9px var(--mono);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .preview-frame-wrap {
+            min-height: 0;
+            padding: 14px;
+            flex: 1;
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 100%;
+            min-height: 530px;
+            display: block;
+            border: 1px solid #dcdce6;
+            border-radius: 4px;
+            background: white;
+        }
+
+        .below-note {
+            margin: 13px 0 0;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .site-footer {
+            padding: 20px 34px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            background: var(--navy);
+            color: white;
+        }
+
+        .footer-brand {
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .footer-links a {
+            color: white;
+            font-size: 11px;
+            text-decoration-color: var(--teal);
+            text-underline-offset: 3px;
+        }
+
+        @media (max-width: 850px) {
+            .topbar {
+                padding-right: 20px;
+                padding-left: 20px;
+                flex-wrap: wrap;
+            }
+
+            .site-nav {
+                width: 100%;
+                justify-content: center;
+                padding: 8px 0 2px;
+                border-top: 1px solid var(--line);
+            }
+
+            .header-actions {
+                margin-left: auto;
+            }
+
+            main {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+
+            .workbench {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .editor-panel {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .editor-area,
+            .code-editor {
+                min-height: 350px;
+            }
+
+            .preview-frame {
+                min-height: 420px;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .topbar {
+                padding: 10px 15px;
+                gap: 10px;
+            }
+
+            .header-actions {
+                width: 100%;
+                gap: 7px;
+            }
+
+            .contact-link {
+                min-width: 0;
+                flex: 1 1 0;
+                padding: 0 7px;
+                font-size: 10px;
+            }
+
+            main {
+                padding: 29px 14px 34px;
+            }
+
+            .page-heading {
+                align-items: flex-start;
+            }
+
+            h1 {
+                font-size: 31px;
+            }
+
+            .reset-button {
+                min-height: 36px;
+                padding: 0 8px;
+                font-size: 10px;
+            }
+
+            .workbench {
+                min-height: 0;
+            }
+
+            .editor-area,
+            .code-editor {
+                min-height: 340px;
+            }
+
+            .code-editor {
+                padding-left: 18px;
+                font-size: 11px;
+            }
+
+            .preview-frame-wrap {
+                padding: 9px;
+            }
+
+            .preview-frame {
+                min-height: 390px;
+            }
+
+            .site-footer {
+                padding: 20px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <a class="brand" href="index.html#home" aria-label="Apeporah home">
+            <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true">
+                <path d="M22 78 50 18 78 78" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="10"></path>
+                <circle cx="50" cy="60" r="7" fill="#2bd0b5"></circle>
+            </svg>
+            <span class="brand-name">Apeporah</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html#home">Home</a>
+            <a href="course.html">Course</a>
+            <a href="playground.html" aria-current="page">Playground</a>
+            <a href="practice.html">Practice</a>
+        </nav>
+        <div class="header-actions">
+            <a class="contact-link primary"
+                href="https://wa.me/2348115085379?text=Hi%20Apeporah%2C%20I%20have%20a%20question%20about%20web%20development."
+                target="_blank" rel="noopener noreferrer">Ask on WhatsApp <span aria-hidden="true">↗</span></a>
+            <a class="contact-link" href="https://www.instagram.com/apeporah/" target="_blank"
+                rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-heading">
+            <div>
+                <div class="eyebrow">Apeporah / the playground</div>
+                <h1>Make a change. See it happen.</h1>
+                <p class="intro">Edit HTML, CSS, and JavaScript below. Your preview updates as you type. Start with the
+                    sample, then make it yours.</p>
+            </div>
+            <div class="page-heading-actions">
+                <button class="reset-button" id="reset-button" type="button" title="Restore the starter example"><span
+                        class="reset-icon" aria-hidden="true">↺</span> Reset</button>
+                <button class="download-button" id="download-button" type="button">Download website</button>
+            </div>
+        </div>
+        <p id="download-status" role="status" aria-live="polite" class="visually-hidden"></p>
+
+        <section class="workbench" aria-label="Code editor and live preview">
+            <div class="editor-panel">
+                <div class="panel-bar"><span class="panel-title">Your code</span><span class="window-dots"
+                        aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <div class="file-tabs" role="tablist" aria-label="Code files">
+                    <button class="file-tab" id="tab-html" role="tab" aria-selected="true"
+                        aria-controls="editor-html">HTML</button>
+                    <button class="file-tab" id="tab-css" role="tab" aria-selected="false"
+                        aria-controls="editor-css">CSS</button>
+                    <button class="file-tab" id="tab-js" role="tab" aria-selected="false"
+                        aria-controls="editor-js">JavaScript</button>
+                </div>
+                <div class="editor-area">
+                    <textarea class="code-editor" id="editor-html" role="tabpanel" aria-labelledby="tab-html"
+                        spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"
+                        aria-label="HTML code editor"></textarea>
+                    <textarea class="code-editor" id="editor-css" role="tabpanel" aria-labelledby="tab-css"
+                        spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"
+                        aria-label="CSS code editor" hidden></textarea>
+                    <textarea class="code-editor" id="editor-js" role="tabpanel" aria-labelledby="tab-js"
+                        spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"
+                        aria-label="JavaScript code editor" hidden></textarea>
+                </div>
+                <div class="editor-status"><span>Plain HTML, CSS &amp; JavaScript</span><span class="status-live"><i
+                            class="status-dot" aria-hidden="true"></i><span id="editor-status" role="status"
+                            aria-live="polite">Preview ready</span></span></div>
+            </div>
+            <div class="preview-panel">
+                <div class="preview-bar"><span class="preview-title"><i class="preview-dot" aria-hidden="true"></i> Live
+                        preview</span><span class="preview-url">your-first-site.example</span></div>
+                <div class="preview-frame-wrap">
+                    <iframe class="preview-frame" id="preview-frame" title="Live preview of your code"
+                        sandbox="allow-scripts"></iframe>
+                    <p class="below-note">The preview runs in an isolated frame. Reset brings back the starter example.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <a class="footer-brand" href="index.html#home">Apeporah</a>
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="course.html">Course</a>
+            <a href="index.html#home">Home</a>
+            <a href="practice.html">Practice</a>
+            <a href="web-development-notes.md" download>Download notes</a>
+            <a href="https://www.instagram.com/apeporah/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://wa.me/2348115085379?text=Hi%20Apeporah%2C%20I%20have%20a%20question%20about%20web%20development."
+                target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </nav>
+    </footer>
+
+    <script>
+        const starter = {
+            html: '<main class="profile">\n  <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85" alt="A laptop ready for a new project">\n  <p class="eyebrow">A little corner of the internet</p>\n  <h1>Hey, I\'m Jamie.</h1>\n  <p class="bio">Curious human, enthusiastic beginner, and learning to make things for the web.</p>\n  <button id="hello-button">Say hello</button>\n</main>',
+            css: 'body {\n  margin: 0;\n  padding: 32px 18px;\n  background: #f4f4f8;\n  color: #201f3f;\n  font: 16px Arial, sans-serif;\n}\n\n.profile {\n  max-width: 420px;\n  margin: 24px auto;\n  padding: 18px;\n  border-radius: 8px;\n  background: white;\n}\n\nimg {\n  width: 100%;\n  height: 190px;\n  object-fit: cover;\n  border-radius: 5px;\n}\n\n.eyebrow { color: #258d7d; text-transform: uppercase; }\nbutton { padding: 11px 15px; background: #1f1d4b; color: white; border: 0; border-radius: 4px; cursor: pointer; }',
+            js: 'const button = document.querySelector("#hello-button");\n\nif (button) {\n  button.addEventListener("click", () => {\n    button.textContent = "Thanks for stopping by!";\n  });\n}'
+        };
+
+        const editors = {
+            html: document.getElementById("editor-html"),
+            css: document.getElementById("editor-css"),
+            js: document.getElementById("editor-js")
+        };
+        const tabs = Array.from(document.querySelectorAll(".file-tab"));
+        const preview = document.getElementById("preview-frame");
+        const status = document.getElementById("editor-status");
+        const statusRow = status.closest(".editor-status");
+        const downloadStatus = document.getElementById("download-status");
+        let updateTimer;
+
+        function escapeClosingScript(code) {
+            return code.replace(new RegExp("<" + "/script", "gi"), "<\\/" + "script");
+        }
+
+        function escapeClosingStyle(code) {
+            return code.replace(new RegExp("<" + "/style", "gi"), "<\\/" + "style");
+        }
+
+        function updatePreview() {
+            const html = editors.html.value;
+            const css = escapeClosingStyle(editors.css.value);
+            const js = escapeClosingScript(editors.js.value);
+            const previewScriptEnd = "<" + "/script>";
+            const errorMonitor = `window.addEventListener("error", event => {
+    parent.postMessage({ type: "apeporah-playground-error", message: event.message || "Script error" }, "*");
+});
+window.addEventListener("unhandledrejection", event => {
+    parent.postMessage({ type: "apeporah-playground-error", message: String(event.reason) }, "*");
+});`;
+            preview.srcdoc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>${css}</style></head><body>${html}<script>${errorMonitor}${previewScriptEnd}<script>${js}${previewScriptEnd}</body></html>`;
+            statusRow.classList.remove("has-error");
+            status.title = "";
+            status.textContent = "Preview updated";
+        }
+
+        function downloadWebsite() {
+            const css = escapeClosingStyle(editors.css.value);
+            const js = escapeClosingScript(editors.js.value);
+            const scriptEnd = "<" + "/script>";
+            const website = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Website</title>
+  <style>${css}</style>
+</head>
+<body>
+${editors.html.value}
+<script>${js}${scriptEnd}
+</body>
+</html>`;
+            const file = new Blob([website], { type: "text/html;charset=utf-8" });
+            const url = URL.createObjectURL(file);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "my-website.html";
+            document.body.append(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            downloadStatus.textContent = "Your website download has started.";
+        }
+
+        window.addEventListener("message", event => {
+            if (event.source !== preview.contentWindow || event.data?.type !== "apeporah-playground-error") return;
+            status.textContent = `JavaScript error: ${event.data.message}`;
+            status.title = status.textContent;
+            statusRow.classList.add("has-error");
+        });
+
+        function schedulePreview() {
+            status.textContent = "Updating preview...";
+            clearTimeout(updateTimer);
+            updateTimer = setTimeout(updatePreview, 180);
+        }
+
+        tabs.forEach(tab => tab.addEventListener("click", () => {
+            const active = tab.id.replace("tab-", "");
+            tabs.forEach(item => item.setAttribute("aria-selected", String(item === tab)));
+            Object.entries(editors).forEach(([name, editor]) => { editor.hidden = name !== active; });
+            editors[active].focus();
+        }));
+
+        Object.values(editors).forEach(editor => {
+            editor.addEventListener("input", schedulePreview);
+            editor.addEventListener("keydown", event => {
+                if (event.key === "Tab") {
+                    event.preventDefault();
+                    const start = editor.selectionStart;
+                    const end = editor.selectionEnd;
+                    editor.setRangeText("  ", start, end, "end");
+                    schedulePreview();
+                }
+            });
+        });
+
+        document.getElementById("reset-button").addEventListener("click", () => {
+            Object.entries(editors).forEach(([name, editor]) => { editor.value = starter[name]; });
+            updatePreview();
+            editors.html.focus();
+            tabs.forEach((tab, index) => tab.setAttribute("aria-selected", String(index === 0)));
+            Object.entries(editors).forEach(([name, editor]) => { editor.hidden = name !== "html"; });
+        });
+
+        document.getElementById("download-button").addEventListener("click", downloadWebsite);
+
+        Object.entries(editors).forEach(([name, editor]) => { editor.value = starter[name]; });
+        updatePreview();
+    </script>
+</body>
+
+</html>
